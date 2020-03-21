@@ -21,7 +21,7 @@
           <span style="background-color: red; margin-left: 1rem;">{{
             cas.deaths
           }}</span>
-          <span style="background-color: orange; margin-left: 1rem;">{{SSS
+          <span style="background-color: orange; margin-left: 1rem;">{{
             cas.active
           }}</span>
           <span style="margin-left: 1rem;">{{
