@@ -15,9 +15,15 @@
         <div v-for="(cas, index) in confirmedByCountry" :key="index">
           <span style="margin-left: 1rem;">{{ cas.countryRegion }}</span>
           <span style="margin-left: 1rem;">{{ cas.confirmed }}</span>
-          <span style="background-color: green; margin-left: 1rem;">{{ cas.recovered }}</span>
-          <span style="background-color: red; margin-left: 1rem;">{{ cas.deaths }}</span>
-          <span style="background-color: orange; margin-left: 1rem;">{{ cas.active }}</span>
+          <span style="background-color: green; margin-left: 1rem;">{{
+            cas.recovered
+          }}</span>
+          <span style="background-color: red; margin-left: 1rem;">{{
+            cas.deaths
+          }}</span>
+          <span style="background-color: orange; margin-left: 1rem;">{{SSS
+            cas.active
+          }}</span>
           <span style="margin-left: 1rem;">{{
             new Date(cas.lastUpdate).toISOString().substr(0, 10)
           }}</span>
