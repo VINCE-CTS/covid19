@@ -1,32 +1,163 @@
 <template>
   <div>
-    <div v-if="loading">loading...</div>
-    <!-- <div v-if="background">
-      <img :src="background" alt="covid background image" />
-    </div> -->
-    <div style="display: flex;">
-      <div style="margin: 2rem;">Confirmed: {{ confirmed }}</div>
-      <div style="margin: 2rem;">Recovered: {{ recovered }}</div>
-      <div style="margin: 2rem;">Death: {{ deaths }}</div>
-    </div>
-    <div>
-      <h3>Cas par pays</h3>
-      <div v-if="confirmedByCountry.length">
-        <div v-for="(cas, index) in confirmedByCountry" :key="index">
-          <span style="margin-left: 1rem;">{{ cas.countryRegion }}</span>
-          <span style="margin-left: 1rem;">{{ cas.confirmed }}</span>
-          <span style="background-color: green; margin-left: 1rem;">{{
-            cas.recovered
-          }}</span>
-          <span style="background-color: red; margin-left: 1rem;">{{
-            cas.deaths
-          }}</span>
-          <span style="background-color: orange; margin-left: 1rem;">{{
-            cas.active
-          }}</span>
-          <span style="margin-left: 1rem;">{{
-            new Date(cas.lastUpdate).toISOString().substr(0, 10)
-          }}</span>
+    <div class="container mx-auto">
+      <div v-if="loading">loading...</div>
+
+      <div class="flex justify-between my-4">
+        <div
+          class="bg-orange-500 w-14 rounded shadow mx-4 w-48 h-24 hover:bg-orange-400"
+          v-if="confirmed"
+        >
+          <h4 class="text-center text-white mt-6">{{ confirmed }}</h4>
+          <h6 class="text-center text-white">Confirmed</h6>
+        </div>
+        <div
+          class="bg-green-500 rounded shadow mx-4 w-48 h-24 hover:bg-green-400"
+          v-if="recovered"
+        >
+          <h4 class="text-center text-white mt-6">{{ recovered }}</h4>
+          <h6 class="text-center text-white">Recovered</h6>
+        </div>
+        <div
+          class="bg-red-500 rounded shadow mx-4 w-48 h-24 hover:bg-red-400"
+          v-if="deaths"
+        >
+          <h4 class="text-center text-white mt-6">{{ deaths }}</h4>
+          <h6 class="text-center text-white">Deaths</h6>
+        </div>
+      </div>
+
+      <div class="flex">
+        <div class="w-full lg:w-1/3 px-4 mt-2">
+          <div class="bg-white border-t border-b sm:rounded sm:border shadow">
+            <div class="border-b">
+              <div class="flex justify-between px-6 -mb-px">
+                <h3 class="text-blue-dark py-4 font-normal text-lg">
+                  Confirmed
+                </h3>
+              </div>
+            </div>
+            <div>
+              <div class="px-6 py-4">
+                <div class="py-4">
+                  <div v-if="confirmedByCountry.length">
+                    <div
+                      v-for="(cas, index) in confirmedByCountry"
+                      :key="index"
+                    >
+                      <span class="mx-1 text-medium font-bold">{{
+                        cas.provinceState
+                          ? cas.provinceState
+                          : cas.countryRegion
+                      }}</span>
+                      <span class="mx-1 bg-orange-500 rounded shadow">{{
+                        cas.confirmed
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full lg:w-1/3 px-4 mt-2">
+          <div class="bg-white border-t border-b sm:rounded sm:border shadow">
+            <div class="border-b">
+              <div class="flex justify-between px-6 -mb-px">
+                <h3 class="text-blue-dark py-4 font-normal text-lg">
+                  Recovered
+                </h3>
+              </div>
+            </div>
+            <div>
+              <div class="px-6 py-4">
+                <div class="py-4">
+                  <div v-if="confirmedByCountry.length">
+                    <div
+                      v-for="(cas, index) in confirmedByCountry"
+                      :key="index"
+                    >
+                      <span class="mx-1 text-medium font-bold">{{
+                        cas.provinceState
+                          ? cas.provinceState
+                          : cas.countryRegion
+                      }}</span>
+                      <span class="mx-1 bg-green-500 rounded shadow">{{
+                        cas.recovered
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full lg:w-1/3 px-4 mt-2">
+          <div class="bg-white border-t border-b sm:rounded sm:border shadow">
+            <div class="border-b">
+              <div class="flex justify-between px-6 -mb-px">
+                <h3 class="text-blue-dark py-4 font-normal text-lg">
+                  Deaths
+                </h3>
+              </div>
+            </div>
+            <div>
+              <div class="px-6 py-4">
+                <div class="py-4">
+                  <div v-if="confirmedByCountry.length">
+                    <div
+                      v-for="(cas, index) in confirmedByCountry"
+                      :key="index"
+                    >
+                      <span class="mx-1 text-medium font-bold">{{
+                        cas.provinceState
+                          ? cas.provinceState
+                          : cas.countryRegion
+                      }}</span>
+                      <span class="mx-1 bg-red-500 rounded shadow">{{
+                        cas.deaths
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full lg:w-1/3 px-4 mt-2">
+          <div class="bg-white border-t border-b sm:rounded sm:border shadow">
+            <div class="border-b">
+              <div class="flex justify-between px-6 -mb-px">
+                <h3 class="text-blue-dark py-4 font-normal text-lg">
+                  Actives
+                </h3>
+              </div>
+            </div>
+            <div>
+              <div class="px-6 py-4">
+                <div class="py-4">
+                  <div v-if="confirmedByCountry.length">
+                    <div
+                      v-for="(cas, index) in confirmedByCountry"
+                      :key="index"
+                    >
+                      <span class="mx-1 text-medium font-bold">{{
+                        cas.provinceState
+                          ? cas.provinceState
+                          : cas.countryRegion
+                      }}</span>
+                      <span class="mx-1 bg-yellow-500 rounded shadow">{{
+                        cas.active
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
